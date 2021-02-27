@@ -1,0 +1,66 @@
+body {
+  max-width: 475px;
+  margin: 100px auto;
+  font-family: "DM Sans", sans-serif;
+  background-image: url("https://images.pexels.com/photos/19670/pexels-photo.jpg?cs=srgb&dl=pexels-miguel-%C3%A1-padri%C3%B1%C3%A1n-19670.jpg&fm=jpg");
+  background-size: cover;
+  opacity: 0.8;
+}
+.body {
+  padding: 30px 20px;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 5px;
+  box-shadow: #808080 0 3px 3px 0;
+}
+form.search {
+  margin-bottom: 30px;
+}
+.city-input {
+  width: 275px;
+}
+.submit {
+  width: 88px;
+}
+div h1 {
+  padding-top: 15px;
+  padding-left: 20px;
+}
+.actual-temperature {
+  font-size: 65px;
+}
+.units {
+  font-size: 16px;
+  vertical-align: text-top;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+div h2 {
+  font-size: 23px;
+}
+div h3 {
+  font-size: 14px;
+}
+div p {
+  font-size: 12px;
+  padding-left: 20px;
+}
+section {
+  text-align: center;
+}
+.days {
+  padding-top: 20px;
+}
+.icons {
+  font-size: 35px;
+  padding: 10px 0;
+}
+.temperature {
+  font-size: 10px;
+  padding-bottom: 5px;
+}
+footer {
+  text-align: center;
+  padding: 10px;
+}
