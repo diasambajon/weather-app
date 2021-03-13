@@ -40,11 +40,19 @@ div h2 {
   font-size: 23px;
 }
 div h3 {
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 0;
 }
-div p {
-  font-size: 12px;
+div h4 {
+  font-size: 15px;
+}
+.description {
   padding-left: 20px;
+  line-height: 0;
+  padding-top: 0;
+}
+p {
+  font-size: 13px;
 }
 section {
   text-align: center;

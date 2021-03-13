@@ -24,7 +24,18 @@ function showTemp(response) {
   let cityTemperature = Math.round(response.data.main.temp);
   let actualTemperature = document.querySelector("#actual-temperature");
   actualTemperature.innerHTML = `${cityTemperature}°`;
+  let status = response.data.weather[0].main;
+  let h3 = document.querySelector("h3");
+  h3.innerHTML = `${status}`;
+  let humidity = response.data.main.humidity;
+  let cityHumidity = document.querySelector("#humidity");
+  cityHumidity.innerHTML = `Humidity: ${humidity}%`;
+  let wind = Math.round(response.data.wind.speed);
+  let cityWind = document.querySelector("#wind");
+  cityWind.innerHTML = `Wind: ${wind}mph`;
+  console.log(response);
 
+  
   function update(fahrenheitEvent) {
     fahrenheitEvent.preventDefault();
     actualTemperature.innerHTML = `${cityTemperature}°`;
