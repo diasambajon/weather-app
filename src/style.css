@@ -11,6 +11,7 @@ body {
   border: 1px solid rgba(128, 128, 128, 0.5);
   border-radius: 5px;
   box-shadow: #808080 0 3px 3px 0;
+  background-color: rgba(221, 213, 252, 0.5);
 }
 form.search {
   margin-bottom: 30px;
@@ -21,20 +22,31 @@ form.search {
 .submit {
   width: 88px;
 }
+.col1 {
+  column-width: 350px;
+  padding: 0;
+}
 div h1 {
   padding-top: 15px;
-  padding-left: 20px;
+}
+h1 img {
+  max-width: 65px;
 }
 .actual-temperature {
-  font-size: 65px;
+  font-size: 50px;
 }
 .units {
-  font-size: 16px;
+  font-size: 12px;
   vertical-align: text-top;
 }
 a {
   text-decoration: none;
   color: black;
+}
+.col2 {
+  column-width: 100px;
+  padding: 0;
+  padding-left: 15px;
 }
 div h2 {
   font-size: 23px;
@@ -42,6 +54,9 @@ div h2 {
 div h3 {
   font-size: 15px;
   line-height: 0;
+}
+div h3::first-letter {
+  text-transform: uppercase;
 }
 div h4 {
   font-size: 15px;

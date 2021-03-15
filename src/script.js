@@ -19,12 +19,29 @@ function getLocation(event) {
 let button = document.querySelector("#current-location");
 button.addEventListener("click", getLocation);
 
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+  ];
+  let day = days[date.getDay()];
+  return `${day} ${hours}:${minutes}`;
+  }
+
 function showTemp(response) {
   document.querySelector("h2").innerHTML = response.data.name;
   let cityTemperature = Math.round(response.data.main.temp);
   let actualTemperature = document.querySelector("#actual-temperature");
   actualTemperature.innerHTML = `${cityTemperature}°`;
-  let status = response.data.weather[0].main;
+  let status = response.data.weather[0].description;
   let h3 = document.querySelector("h3");
   h3.innerHTML = `${status}`;
   let humidity = response.data.main.humidity;
@@ -33,9 +50,14 @@ function showTemp(response) {
   let wind = Math.round(response.data.wind.speed);
   let cityWind = document.querySelector("#wind");
   cityWind.innerHTML = `Wind: ${wind}mph`;
+  let dateElement = document.querySelector("h4");
+  dateElement.innerHTML = formatDate(response.data.dt * 1000);
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  iconElement.setAttribute("alt", response.data.weather[0].description);
   console.log(response);
 
-  
+
   function update(fahrenheitEvent) {
     fahrenheitEvent.preventDefault();
     actualTemperature.innerHTML = `${cityTemperature}°`;
@@ -67,20 +89,5 @@ function input(event) {
 let cityform = document.querySelector("#city-form");
 cityform.addEventListener("submit", input);
 
-let now = new Date();
 
-let h3 = document.querySelector("h3");
 
-let hours = now.getHours();
-let minutes = now.getMinutes();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday"
-];
-let day = days[now.getDay()];
-h3.innerHTML = `${day} ${hours}:${minutes}`;
