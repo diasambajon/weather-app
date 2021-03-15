@@ -21,8 +21,7 @@ button.addEventListener("click", getLocation);
 
 function formatDate(timestamp) {
   let date = new Date(timestamp);
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
+
   let days = [
   "Sunday",
   "Monday",
@@ -33,8 +32,21 @@ function formatDate(timestamp) {
   "Saturday"
   ];
   let day = days[date.getDay()];
-  return `${day} ${hours}:${minutes}`;
+  return `${day} ${formatHours(timestamp)}`;
   }
+
+function formatHours(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  return `${hours}:${minutes}`;
+}
 
 function showTemp(response) {
   document.querySelector("h2").innerHTML = response.data.name;
@@ -52,10 +64,10 @@ function showTemp(response) {
   cityWind.innerHTML = `Wind: ${wind}mph`;
   let dateElement = document.querySelector("h4");
   dateElement.innerHTML = formatDate(response.data.dt * 1000);
+  console.log(response.data.dt);
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   iconElement.setAttribute("alt", response.data.weather[0].description);
-  console.log(response);
 
 
   function update(fahrenheitEvent) {
@@ -76,18 +88,48 @@ function showTemp(response) {
   celsius.addEventListener("click", show);
 }
 
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+  
+  for (let index = 0; index < 5; index++) {
+    forecast = response.data.list[index];
+    forecastElement.innerHTML += `
+    <div class="col">
+    <p class="hour">
+      ${formatHours(forecast.dt * 1000)}
+    </p>
+    <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="#" class="forecast-icon">
+    <div class="forecast-temperature">
+    <strong>
+      ${Math.round(forecast.main.temp_max)}°
+    </strong>
+      ${Math.round(forecast.main.temp_min)}°
+    </div>
+    </div>
+    `;
+  }
+}
+
+function search(city) {
+  let apiKey = "ec8e69b1285b9aa207ab4f4d6f6be3e0";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+
+  axios.get(apiUrl).then(showTemp)
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`;
+  axios.get(apiUrl).then(displayForecast);
+}
 function input(event) {
   event.preventDefault();
   let enterCity = document.querySelector("#enter-city");
-
-  let apiKey = "ec8e69b1285b9aa207ab4f4d6f6be3e0";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${enterCity.value}&appid=${apiKey}&units=imperial`;
-
-  axios.get(apiUrl).then(showTemp);
+  search(enterCity.value);
 }
+
+
+search("Los Angeles");
 
 let cityform = document.querySelector("#city-form");
 cityform.addEventListener("submit", input);
-
-
 
