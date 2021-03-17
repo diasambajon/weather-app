@@ -11,6 +11,10 @@ function getLocation(event) {
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
 
     axios.get(apiUrl).then(showTemp);
+
+    apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
+    
+    axios.get(apiUrl).then(displayForecast);
   }
 
   navigator.geolocation.getCurrentPosition(showPosition);
@@ -64,7 +68,6 @@ function showTemp(response) {
   cityWind.innerHTML = `Wind: ${wind}mph`;
   let dateElement = document.querySelector("h4");
   dateElement.innerHTML = formatDate(response.data.dt * 1000);
-  console.log(response.data.dt);
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   iconElement.setAttribute("alt", response.data.weather[0].description);
